@@ -8,10 +8,9 @@ describe('StructuredDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StructuredDataComponent]
-    })
-    .compileComponents();
-    
+      imports: [StructuredDataComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(StructuredDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
