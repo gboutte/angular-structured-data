@@ -20,6 +20,9 @@ jobs:
           registry-url: https://registry.npmjs.org/
           node-version: '18'
 
+      - name: Install angular cli
+        run: npm install -g @angular/cli@latest
+
       - name: Install dependencies
         run: npm install
 
@@ -33,6 +36,7 @@ jobs:
       # Bump package version
       # Use tag latest
       - name: Bump release version
+        working-directory: ./projects/angular-structured-data
         if: startsWith(github.event.inputs.release-type, 'pre') != true
         run: |
           echo "NEW_VERSION=$(npm --no-git-tag-version version $RELEASE_TYPE)" >> $GITHUB_ENV
@@ -43,6 +47,7 @@ jobs:
       # Bump package pre-release version
       # Use tag beta for pre-release versions
       - name: Bump pre-release version
+        working-directory: ./projects/angular-structured-data
         if: startsWith(github.event.inputs.release-type, 'pre')
         run: |
           echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE)" >> $GITHUB_ENV
@@ -52,7 +57,8 @@ jobs:
 
 
       - name: Build library
-        run: npm run build
+        working-directory: ./projects/angular-structured-data
+        run: ng build
 
       # Update changelog unreleased section with new version
       - name: Update changelog
@@ -65,13 +71,14 @@ jobs:
       # Commit changes
       - name: Commit CHANGELOG.md and package.json changes and create tag
         run: |
-          git add "package.json"
+          git add "projects/angular-structured-data/package.json"
           git add "CHANGELOG.md"
           git commit -m "chore: release ${{ env.NEW_VERSION }}"
           git tag ${{ env.NEW_VERSION }}
 
       # Publish version to public repository
       - name: Publish
+        working-directory: ./dist/angular-structured-data
         run: npm publish --verbose --access public --tag ${{ env.RELEASE_TAG }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPMJS_ACCESS_TOKEN }}
