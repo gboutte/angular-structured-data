@@ -83,7 +83,9 @@ export class AppComponent {
 ```
 
 ## Article
+
 Example:
+
 ```typescript
 const schema = new ArticleSchema();
 schema.type = 'Article';
@@ -111,10 +113,10 @@ schema.date_modified = new Date('2021-01-02');
 | `date_published` | `Date`\|`null`                          | The date the article was published       |
 | `date_modified`  | `Date`\|`null`                          | The date the article was modified        |
 
-
 ## Website SearchBox
 
 Example:
+
 ```typescript
 const schema = new WebsiteSchema();
 
@@ -124,16 +126,17 @@ schema.search_url = 'https://www.example.com/search?q=';
 schema.search_url_suffix = '&source=structured_data';
 ```
 
-| Property           | Type      | Description                              |
-|--------------------|-----------|------------------------------------------|
-| `name`             | `string`  | The name of the website                  |
-| `url`              | `string`  | The URL of the website                   |
-| `search_url`       | `string`  | The URL of the search page               |
-| `search_url_suffix`| `string`  | The suffix of the search URL             |
+| Property            | Type     | Description                  |
+|---------------------|----------|------------------------------|
+| `name`              | `string` | The name of the website      |
+| `url`               | `string` | The URL of the website       |
+| `search_url`        | `string` | The URL of the search page   |
+| `search_url_suffix` | `string` | The suffix of the search URL |
 
 ## FAQPage
 
 Example:
+
 ```typescript
 const schema = new FaqSchema();
 
@@ -149,8 +152,36 @@ schema.questions = [
 ];
 ```
 
-| Property      | Type      | Description                          |
-|---------------|-----------|--------------------------------------|
-| `questions`  | `Question[]`   | The list of the Question of the page |
+| Property    | Type         | Description                          |
+|-------------|--------------|--------------------------------------|
+| `questions` | `Question[]` | The list of the Question of the page |
 
+## BreadcrumbList
 
+Example:
+
+```typescript
+const schema = new BreadcrumbSchema();
+
+schema.items = [
+  {
+    position: 1,
+    name: 'Home',
+    item: 'https://www.example.com'
+  },
+  {
+    position: 2,
+    name: 'Category',
+    item: 'https://www.example.com/category'
+  },
+  {
+    position: 3,
+    name: 'Subcategory',
+    item: 'https://www.example.com/category/subcategory'
+  }
+];
+```
+
+| Property | Type               | Description                                |
+|----------|--------------------|--------------------------------------------|
+| `items`  | `BreadcrumbItem[]` | The list of the BreadcrumbItem of the page |
