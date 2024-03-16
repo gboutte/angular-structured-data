@@ -1,5 +1,5 @@
 {
-  "name": "@gboutte/angular-structured-data",
+  "name": "angular-structured-data",
   "version": "0.0.0",
   "description": "This package allow you to add the structured data to your angular application.",
   "keywords": [

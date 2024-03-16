@@ -69,6 +69,11 @@ jobs:
           operation: release
 
       # Commit changes
+      - name: Copy readme from root to project
+        run: |
+            cp README.md projects/angular-structured-data/README.md
+
+      # Commit changes
       - name: Commit CHANGELOG.md and package.json changes and create tag
         run: |
           git add "projects/angular-structured-data/package.json"
