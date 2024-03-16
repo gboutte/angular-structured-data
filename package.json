@@ -1,6 +1,11 @@
 {
-  "name": "angular-structured-data",
+  "name": "@gboutte/angular-structured-data",
   "version": "0.0.0",
+  "description": "This package allow you to add the structured data to your angular application.",
+  "keywords": [
+    "angular",
+    "structured data"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

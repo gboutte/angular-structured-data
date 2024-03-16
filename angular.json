@@ -50,7 +50,7 @@
       },
       "root": "projects/doc",
       "sourceRoot": "projects/doc/src",
-      "prefix": "app",
+      "prefix": "sd",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",

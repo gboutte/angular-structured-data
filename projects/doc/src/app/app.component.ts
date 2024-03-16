@@ -2,30 +2,31 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { WebsiteSchema } from '../../../angular-structured-data/src/lib/schemas/website/website-schema';
 import { StructuredDataService } from '../../../angular-structured-data/src/lib/structured-data.service';
+import {Schema} from "../../../angular-structured-data/src/lib/schema";
+import {
+  StructuredDataComponent
+} from "../../../angular-structured-data/src/lib/structured-data/structured-data.component";
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  providers: [StructuredDataService],
+  imports: [RouterOutlet,StructuredDataComponent],
+  providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  private structuredDataService: StructuredDataService;
+  schema!:Schema;
 
-  data!: any;
-  constructor(structuredDataService: StructuredDataService) {
-    this.structuredDataService = structuredDataService;
-
+  constructor() {
     const schema = new WebsiteSchema();
 
     schema.name = 'My Website';
     schema.url = 'https://www.example.com';
     schema.search_url = 'https://www.example.com/search?q=';
 
-    const id = this.structuredDataService.addStructuredData(schema);
 
-    this.structuredDataService.removeAllStructuredData();
+    this.schema = schema;
   }
 }
