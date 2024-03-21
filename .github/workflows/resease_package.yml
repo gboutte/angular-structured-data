@@ -68,7 +68,7 @@ jobs:
           version: ${{ env.NEW_VERSION }}
           operation: release
 
-      # Commit changes
+      # Copy readme from root to project
       - name: Copy readme from root to project
         run: |
             rm projects/angular-structured-data/README.md

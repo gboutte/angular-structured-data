@@ -1,19 +1,21 @@
 export abstract class Schema {
   private data: any = {};
 
-  constructor() {
-    this.data['@context'] = 'https://schema.org';
+  constructor(schemaType: string | false = 'https://schema.org') {
+    if (schemaType) {
+      this.data['@context'] = schemaType;
+    }
   }
 
-  addProperty(key: string, value: any) {
+  protected addProperty(key: string, value: any) {
     this.data[key] = value;
   }
 
-  setProperty(key: string, value: any) {
+  protected setProperty(key: string, value: any) {
     this.data[key] = value;
   }
 
-  removeProperty(key: string) {
+  protected removeProperty(key: string) {
     delete this.data[key];
   }
 
@@ -22,4 +24,9 @@ export abstract class Schema {
   }
 
   abstract build(): void;
+
+  toString() {
+    this.build();
+    return JSON.stringify(this.data, null, 2);
+  }
 }

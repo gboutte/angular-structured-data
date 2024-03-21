@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {Schema} from '../../../angular-structured-data/src/lib/schema';
-import {WebsiteSchema} from '../../../angular-structured-data/src/lib/schemas/website/website-schema';
-import {
-  StructuredDataComponent
-} from '../../../angular-structured-data/src/lib/structured-data/structured-data.component';
-import {StructuredDataService} from "../../../angular-structured-data/src/lib/structured-data.service";
-import {BreadcrumbSchema} from "../../../angular-structured-data/src/lib/schemas/breadcrumb/breadcrumb-schema";
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Schema } from '../../../angular-structured-data/src/lib/schema';
+import { OfflineEventAttendanceModeSchema } from '../../../angular-structured-data/src/lib/schemas/event/attendance-mode/offline-event-attendance-mode-schema';
+import { EventSchema } from '../../../angular-structured-data/src/lib/schemas/event/event-schema';
+import { OfferSchema } from '../../../angular-structured-data/src/lib/schemas/offer-schema';
+import { PostalAddressSchema } from '../../../angular-structured-data/src/lib/schemas/postal-address-schema';
+import { StructuredDataService } from '../../../angular-structured-data/src/lib/structured-data.service';
+import { StructuredDataComponent } from '../../../angular-structured-data/src/lib/structured-data/structured-data.component';
 
 @Component({
   selector: 'app-root',
@@ -20,20 +20,31 @@ export class AppComponent {
   schema!: Schema;
 
   constructor() {
-    const schema = new BreadcrumbSchema();
+    const schema = new EventSchema();
 
-    schema.items.push({
-        name: 'Home',
-        url: 'https://example.com',
-        position: 2,
-      },
-      {
-        name: 'Home',
-        url: 'https://example.com',
-        position: 4,
-      });
+    schema.name = 'Event Name';
+    schema.perfomer_name = 'Performer Name';
+    schema.description = 'Event Description';
+    schema.image_url = 'https://example.com/image.jpg';
+    schema.eventStatus = 'Scheduled';
 
+    const offer = new OfferSchema();
+    offer.price = 100;
+
+    schema.offers = [offer];
+
+    const attendanceMode = new OfflineEventAttendanceModeSchema();
+    attendanceMode.name = 'Offline Event';
+    attendanceMode.postalAddress = new PostalAddressSchema();
+    attendanceMode.postalAddress.streetAddress = '123 Main St';
+    attendanceMode.postalAddress.addressLocality = 'Springfield';
+    attendanceMode.postalAddress.addressRegion = 'IL';
+    attendanceMode.postalAddress.postalCode = '62701';
+    attendanceMode.postalAddress.addressCountry = 'US';
+
+    schema.attendanceMode = attendanceMode;
 
     this.schema = schema;
+    this.schema.build();
   }
 }

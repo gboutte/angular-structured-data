@@ -185,3 +185,49 @@ schema.items = [
 | Property | Type               | Description                                |
 |----------|--------------------|--------------------------------------------|
 | `items`  | `BreadcrumbItem[]` | The list of the BreadcrumbItem of the page |
+
+## Event
+
+Example:
+
+```typescript
+const schema = new EventSchema();
+
+schema.name = 'Event Name';
+schema.perfomer_name = 'Performer Name';
+schema.description = 'Event Description';
+schema.image_url = 'https://example.com/image.jpg';
+schema.eventStatus = 'Scheduled';
+
+const offer = new OfferSchema();
+offer.price = 100;
+
+schema.offers = [
+  offer
+];
+
+
+const attendanceMode = new OfflineEventAttendanceModeSchema();
+attendanceMode.name = 'Offline Event';
+attendanceMode.postalAddress = new PostalAddressSchema();
+attendanceMode.postalAddress.streetAddress = '123 Main St';
+attendanceMode.postalAddress.addressLocality = 'Springfield';
+attendanceMode.postalAddress.addressRegion = 'IL';
+attendanceMode.postalAddress.postalCode = '62701';
+attendanceMode.postalAddress.addressCountry = 'US';
+
+schema.attendanceMode = attendanceMode;
+```
+
+| Property         | Type                                                                        | Description                            |
+|------------------|-----------------------------------------------------------------------------|----------------------------------------|
+| `name`           | `string`                                                                    | The name of the event                  |
+| `description`    | `string`                                                                    | The description of the event           |
+| `image_url`      | `string`                                                                    | The URL of the image of the event      |
+| `perfomer_name`  | `string`                                                                    | The name of the performer of the event |
+| `perfomer_type`  | 'Person'\| 'PerformingGroup'\| 'MusicGroup'\| 'DanceGroup'\| 'TheaterGroup' | The name of the performer of the event |
+| `eventStatus`    | 'Scheduled'\| 'Cancelled'\| 'Postponed'\| 'MovedOnline'\| 'None'            | The status of the event                |
+| `offers`         | `OfferSchema[]`                                                             | The list of the offers of the event    |
+| `attendanceMode` | `EventAttendanceModeSchema`                                                 | The attendance mode of the event       |
+| `startDate`      | `Date`\|`null`                                                              | The start date of the event            |
+| `endDate`        | `Date`\|`null`                                                              | The end date of the event              |

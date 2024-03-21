@@ -1,5 +1,5 @@
 import { Schema } from '../../schema';
-import {BreadcrumbItem} from "./breadcrumb-item";
+import { BreadcrumbItem } from './breadcrumb-item';
 export class BreadcrumbSchema extends Schema {
   items: BreadcrumbItem[] = [];
 
@@ -15,7 +15,7 @@ export class BreadcrumbSchema extends Schema {
         '@type': 'ListItem',
         name: item.name,
         item: item.url,
-        position: item.position
+        position: item.position,
       };
       itemsList.push(itemSchema);
     }
