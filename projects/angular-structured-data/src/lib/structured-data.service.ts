@@ -1,13 +1,16 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, Renderer2 } from '@angular/core';
+import { Inject, Injectable, RendererFactory2 } from '@angular/core';
 import { Schema } from './schema';
 
 @Injectable()
 export class StructuredDataService {
+  private _renderer2;
   constructor(
-    private _renderer2: Renderer2,
+    rendererFactory: RendererFactory2,
     @Inject(DOCUMENT) private _document: Document,
-  ) {}
+  ) {
+    this._renderer2 = rendererFactory.createRenderer(null, null);
+  }
 
   public addStructuredData(schema: Schema): string {
     //Generate an id for the schema
