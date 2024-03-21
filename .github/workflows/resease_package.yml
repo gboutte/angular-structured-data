@@ -56,6 +56,12 @@ jobs:
           RELEASE_TYPE: ${{ github.event.inputs.release-type }}
 
 
+      # Copy readme from root to project
+      - name: Copy readme from root to project
+        run: |
+          rm projects/angular-structured-data/README.md
+          cp README.md projects/angular-structured-data/README.md
+
       - name: Build library
         working-directory: ./projects/angular-structured-data
         run: ng build
@@ -67,12 +73,6 @@ jobs:
           path-to-changelog: CHANGELOG.md
           version: ${{ env.NEW_VERSION }}
           operation: release
-
-      # Copy readme from root to project
-      - name: Copy readme from root to project
-        run: |
-            rm projects/angular-structured-data/README.md
-            cp README.md projects/angular-structured-data/README.md
 
       # Commit changes
       - name: Commit CHANGELOG.md and package.json changes and create tag
