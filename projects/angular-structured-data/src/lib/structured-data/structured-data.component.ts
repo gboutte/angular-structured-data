@@ -28,7 +28,7 @@ export class StructuredDataComponent implements OnChanges, OnDestroy {
     if (this.id !== undefined) {
       this.structuredDataService.removeStructuredData(this.id);
     }
-    this.structuredDataService.addStructuredData(this.schema);
+    this.id = this.structuredDataService.addStructuredData(this.schema);
   }
 
   ngOnDestroy(): void {
