@@ -51,6 +51,8 @@ You can add the structured data by using the `StructuredDataComponent` component
 
 This will allow you to add structured data to the page and remove structured data from the page automatically when the component is destroyed.
 
+In an SSR application it's recommended to use the `StructuredDataComponent` component, because it will avoid duplicate structured data on the page.
+
 Example:
 
 ```typescript
