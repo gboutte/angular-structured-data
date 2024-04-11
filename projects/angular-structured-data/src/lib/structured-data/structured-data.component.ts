@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   Input,
   OnChanges,
   OnDestroy,
