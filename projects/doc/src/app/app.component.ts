@@ -1,3 +1,4 @@
+import { NgForOf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Schema } from '../../../angular-structured-data/src/lib/schema';
@@ -11,13 +12,15 @@ import { StructuredDataComponent } from '../../../angular-structured-data/src/li
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, StructuredDataComponent],
+  imports: [RouterOutlet, StructuredDataComponent, NgForOf],
   providers: [StructuredDataService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   schema!: Schema;
+
+  schemas: Schema[] = [];
 
   constructor() {
     const schema = new EventSchema();
@@ -43,6 +46,8 @@ export class AppComponent {
     attendanceMode.postalAddress.addressCountry = 'US';
 
     schema.attendanceMode = attendanceMode;
+
+    this.schemas.push(schema);
 
     this.schema = schema;
     this.schema.build();
