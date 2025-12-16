@@ -1,13 +1,9 @@
 import { NgForOf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Schema } from '../../../angular-structured-data/src/lib/schema';
-import { OfflineEventAttendanceModeSchema } from '../../../angular-structured-data/src/lib/schemas/event/attendance-mode/offline-event-attendance-mode-schema';
-import { EventSchema } from '../../../angular-structured-data/src/lib/schemas/event/event-schema';
-import { OfferSchema } from '../../../angular-structured-data/src/lib/schemas/offer-schema';
-import { PostalAddressSchema } from '../../../angular-structured-data/src/lib/schemas/postal-address-schema';
-import { StructuredDataService } from '../../../angular-structured-data/src/lib/structured-data.service';
+
 import { StructuredDataComponent } from '../../../angular-structured-data/src/lib/structured-data/structured-data.component';
+import { SchemaInterface,StructuredDataService ,EventSchema,PersonSchema,EventStatusType,OfferSchema,ItemAvailability,PlaceSchema,PostalAddressSchema,EventAttendanceModeEnumeration} from '@gboutte/schema.org-classes'
 
 @Component({
   selector: 'app-root',
@@ -18,38 +14,50 @@ import { StructuredDataComponent } from '../../../angular-structured-data/src/li
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  schema!: Schema;
+  schema!: SchemaInterface;
 
-  schemas: Schema[] = [];
+  schemaJsonString!: string;
 
+
+  schemas: SchemaInterface[] = [];
   constructor() {
-    const schema = new EventSchema();
+    const schema: EventSchema = new EventSchema();
 
     schema.name = 'Event Name';
-    schema.perfomer_name = 'Performer Name';
+    schema.performer = new PersonSchema();
+    schema.performer.name = 'Performer Name';
     schema.description = 'Event Description';
-    schema.image_url = 'https://example.com/image.jpg';
-    schema.eventStatus = 'Scheduled';
+    schema.image = 'https://example.com/image.jpg';
+    schema.eventStatus = EventStatusType.EventScheduled;
+    schema.startDate = new Date('2025-12-01T20:00:00.000Z');
 
-    const offer = new OfferSchema();
+    const offer: OfferSchema = new OfferSchema();
     offer.price = 100;
+    offer.priceCurrency = 'EUR';
+    offer.validFrom = new Date('2025-12-01T11:50:00.000Z');
+    offer.url = 'http://google.fr';
+    offer.availability = ItemAvailability.InStock;
 
     schema.offers = [offer];
 
-    const attendanceMode = new OfflineEventAttendanceModeSchema();
-    attendanceMode.name = 'Offline Event';
-    attendanceMode.postalAddress = new PostalAddressSchema();
-    attendanceMode.postalAddress.streetAddress = '123 Main St';
-    attendanceMode.postalAddress.addressLocality = 'Springfield';
-    attendanceMode.postalAddress.addressRegion = 'IL';
-    attendanceMode.postalAddress.postalCode = '62701';
-    attendanceMode.postalAddress.addressCountry = 'US';
+    const location: PlaceSchema = new PlaceSchema();
+    location.name = 'Offline Event';
+    location.address = new PostalAddressSchema();
+    location.address.streetAddress = '123 Main St';
+    location.address.addressLocality = 'Springfield';
+    location.address.addressRegion = 'IL';
+    location.address.postalCode = '62701';
+    location.address.addressCountry = 'US';
 
-    schema.attendanceMode = attendanceMode;
+    schema.location = location;
+
+    schema.eventAttendanceMode =
+      EventAttendanceModeEnumeration.OfflineEventAttendanceMode;
+
+    const service = new StructuredDataService()
+    const jsonString: string = service.getStructuredDataJsonString(schema);
 
     this.schemas.push(schema);
-
-    this.schema = schema;
-    this.schema.build();
+    this.schemaJsonString = jsonString;
   }
 }

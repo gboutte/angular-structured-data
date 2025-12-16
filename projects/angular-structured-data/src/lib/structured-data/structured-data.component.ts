@@ -6,8 +6,8 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
-import { Schema } from '../schema';
-import { StructuredDataService } from '../structured-data.service';
+import { AngularStructuredDataService } from '../angular-structured-data.service';
+import { SchemaInterface } from '@gboutte/schema.org-classes';
 
 @Component({
   selector: 'sd-structured-data',
@@ -15,20 +15,22 @@ import { StructuredDataService } from '../structured-data.service';
   imports: [],
   templateUrl: './structured-data.component.html',
   styleUrl: './structured-data.component.scss',
+  providers: [AngularStructuredDataService]
 })
 export class StructuredDataComponent implements OnChanges, OnDestroy {
-  @Input() schema!: Schema;
+  @Input() schema!: SchemaInterface;
   private id!: string;
-  private structuredDataService: StructuredDataService;
+  private structuredDataService: AngularStructuredDataService;
   private elRef: ElementRef;
 
-  constructor(structuredDataService: StructuredDataService, elRef: ElementRef) {
+  constructor(structuredDataService: AngularStructuredDataService, elRef: ElementRef) {
     this.structuredDataService = structuredDataService;
     this.elRef = elRef;
     const dataId = this.elRef.nativeElement.getAttribute('data-id-sd');
     if (dataId !== null) {
       this.id = dataId;
     }
+    console.log('ici')
   }
 
   ngOnChanges(changes: SimpleChanges): void {

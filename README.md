@@ -2,9 +2,9 @@
 
 ## Structured Data Service
 
-You can add the structured data by using the `StructuredDataService` service.
+You can add the structured data by using the `AngularStructuredDataService` service.
 
-By using the `StructuredDataService` you can add structured data to the page, remove structured data from the page and remove all structured data from the page.
+By using the `AngularStructuredDataService` you can add structured data to the page, remove structured data from the page and remove all structured data from the page.
 
 If you use this approach, you have to remove the structured data from the page manually, otherwise, the structured data will stay on the page even if you navigate to another page.
 
@@ -23,14 +23,14 @@ Example:
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  providers: [StructuredDataService],
+  providers: [AngularStructuredDataService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  private structuredDataService: StructuredDataService;
+  private structuredDataService: AngularStructuredDataService;
 
-  constructor(structuredDataService: StructuredDataService) {
+  constructor(structuredDataService: AngularStructuredDataService) {
     this.structuredDataService = structuredDataService;
 
     const schema = new WebsiteSchema();

@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- installed package `@gboutte/schema.org-classes`
+
+### Changed
+- Renamed `StructuredDataService` to `AngularStructuredDataService`
+- Updated `AngularStructuredDataService` and `StructuredDataComponent` to use `StructuredDataService` and all Schema classes from `@gboutte/schema.org-classes`
+
+### Removed
+- `StructuredDataService`
+- `StructuredDataComponent`
+- `FaqSchema`
+- `ArticleSchema`
+- `WebsiteSchema`
+- `BreadcrumbSchema`
+- `EventSchema`
+
 ## 0.0.6 - 2024-04-11
 
 ## 0.0.5 - 2024-04-09

@@ -1,10 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, RendererFactory2 } from '@angular/core';
-import { Schema } from './schema';
+import { SchemaInterface,StructuredDataService as SdService } from '@gboutte/schema.org-classes';
 
 @Injectable()
-export class StructuredDataService {
+export class AngularStructuredDataService {
   private _renderer2;
+  private sdService:SdService = new SdService();
   constructor(
     rendererFactory: RendererFactory2,
     @Inject(DOCUMENT) private _document: Document,
@@ -12,7 +13,7 @@ export class StructuredDataService {
     this._renderer2 = rendererFactory.createRenderer(null, null);
   }
 
-  public addStructuredData(schema: Schema): string {
+  public addStructuredData(schema: SchemaInterface): string {
     //Generate an id for the schema
     const id = `schema-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -20,8 +21,7 @@ export class StructuredDataService {
     script.type = 'application/ld+json';
     script.id = id;
     script.className = 'structured-data';
-    schema.build();
-    script.text = JSON.stringify(schema.getData());
+    script.text = this.sdService.getStructuredDataJsonString(schema);
     this._renderer2.appendChild(this._document.body, script);
     return id;
   }
