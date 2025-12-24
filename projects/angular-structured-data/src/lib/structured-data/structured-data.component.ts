@@ -10,12 +10,11 @@ import { AngularStructuredDataService } from '../angular-structured-data.service
 import { SchemaInterface } from '@gboutte/schema.org-classes';
 
 @Component({
-  selector: 'sd-structured-data',
-  standalone: true,
-  imports: [],
-  templateUrl: './structured-data.component.html',
-  styleUrl: './structured-data.component.scss',
-  providers: [AngularStructuredDataService]
+    selector: 'sd-structured-data',
+    imports: [],
+    templateUrl: './structured-data.component.html',
+    styleUrl: './structured-data.component.scss',
+    providers: [AngularStructuredDataService]
 })
 export class StructuredDataComponent implements OnChanges, OnDestroy {
   @Input() schema!: SchemaInterface;

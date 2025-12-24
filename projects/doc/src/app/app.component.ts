@@ -6,12 +6,11 @@ import { StructuredDataComponent } from '../../../angular-structured-data/src/li
 import { SchemaInterface,StructuredDataService ,EventSchema,PersonSchema,EventStatusType,OfferSchema,ItemAvailability,PlaceSchema,PostalAddressSchema,EventAttendanceModeEnumeration} from '@gboutte/schema.org-classes'
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, StructuredDataComponent, NgForOf],
-  providers: [StructuredDataService],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    selector: 'app-root',
+    imports: [StructuredDataComponent, NgForOf],
+    providers: [StructuredDataService],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   schema!: SchemaInterface;
