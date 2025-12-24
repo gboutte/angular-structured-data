@@ -1,13 +1,10 @@
-import { NgForOf } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
 import { StructuredDataComponent } from '../../../angular-structured-data/src/lib/structured-data/structured-data.component';
 import { SchemaInterface,StructuredDataService ,EventSchema,PersonSchema,EventStatusType,OfferSchema,ItemAvailability,PlaceSchema,PostalAddressSchema,EventAttendanceModeEnumeration} from '@gboutte/schema.org-classes'
 
 @Component({
     selector: 'app-root',
-    imports: [StructuredDataComponent, NgForOf],
+    imports: [StructuredDataComponent],
     providers: [StructuredDataService],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'

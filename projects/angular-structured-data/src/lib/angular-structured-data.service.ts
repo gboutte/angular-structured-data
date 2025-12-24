@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, RendererFactory2 } from '@angular/core';
+
+import { Inject, Injectable, RendererFactory2, DOCUMENT } from '@angular/core';
 import { SchemaInterface,StructuredDataService as SdService } from '@gboutte/schema.org-classes';
 
 @Injectable()
