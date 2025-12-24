@@ -3,13 +3,17 @@ import { SchemaInterface,StructuredDataService as SdService } from '@gboutte/sch
 
 @Injectable()
 export class AngularStructuredDataService {
-  private _document = inject<Document>(DOCUMENT);
+  private _document:Document = inject<Document>(DOCUMENT);
 
   private rendererFactory: RendererFactory2 = inject(RendererFactory2);
   private _renderer2:Renderer2;
   private sdService:SdService = new SdService();
   constructor() {
     this._renderer2 = this.rendererFactory.createRenderer(null, null);
+  }
+
+  public getStructuredDataJsonString(schema: SchemaInterface): string {
+    return this.sdService.getStructuredDataJsonString(schema);
   }
 
   public addStructuredData(schema: SchemaInterface): string {
@@ -20,7 +24,7 @@ export class AngularStructuredDataService {
     script.type = 'application/ld+json';
     script.id = id;
     script.className = 'structured-data';
-    script.text = this.sdService.getStructuredDataJsonString(schema);
+    script.text = this.getStructuredDataJsonString(schema);
     this._renderer2.appendChild(this._document.body, script);
     return id;
   }

@@ -1,0 +1,10 @@
+
+<pre>
+  &lt;script type="application/ld+json"&gt;
+  {{schemaJsonString}}
+  &lt;/script&gt;
+</pre>
+
+@for (schem of schemas; track schem) {
+  <sd-structured-data [schema]="schem" />
+}
