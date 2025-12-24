@@ -28,16 +28,14 @@ Example:
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  private structuredDataService: AngularStructuredDataService;
+  private structuredDataService: AngularStructuredDataService = inject(AngularStructuredDataService);
 
-  constructor(structuredDataService: AngularStructuredDataService) {
-    this.structuredDataService = structuredDataService;
+  constructor() {
 
     const schema = new WebsiteSchema();
 
     schema.name = 'My Website';
     schema.url = 'https://www.example.com';
-    schema.search_url = 'https://www.example.com/search?q=';
 
     this.structuredDataService.addStructuredData(schema);
   }
@@ -53,183 +51,20 @@ This will allow you to add structured data to the page and remove structured dat
 
 In an SSR application it's recommended to use the `StructuredDataComponent` component, because it will avoid duplicate structured data on the page.
 
-Example:
-
-```typescript
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, StructuredDataComponent],
-  providers: [],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-})
-export class AppComponent {
-  schema!: Schema;
-
-  constructor() {
-    const schema = new WebsiteSchema();
-
-    schema.name = 'My Website';
-    schema.url = 'https://www.example.com';
-    schema.search_url = 'https://www.example.com/search?q=';
-
-    this.schema = schema;
-  }
-}
-```
 
 ```html
 
 <sd-structured-data [schema]="schema"/>
 ```
 
-## Article
+## Examples
 
-Example:
+You can find some examples in the [examples](projects/doc/src/app/examples) folder.
 
-```typescript
-const schema = new ArticleSchema();
-schema.type = 'Article';
-schema.headline = 'Article headline';
-schema.image = ['https://www.example.com/image.jpg'];
-schema.author_name = 'John Doe';
-schema.author_url = 'https://www.example.com/johndoe';
-schema.author_type = 'Person';
-schema.publisher_name = 'My Website';
-schema.publisher_url = 'https://www.example.com';
-schema.date_published = new Date('2021-01-01');
-schema.date_modified = new Date('2021-01-02');
-```
+## Schema Classes
 
-| Property         | Type                                    | Description                              |
-|------------------|-----------------------------------------|------------------------------------------|
-| `type`           | `Article`\|`NewsArticle`\|`BlogPosting` | The type of the schema                   |
-| `headline`       | `string`                                | The headline of the article              |
-| `image`          | `string`[]                              | The URL of the images of the article     |
-| `author_name`    | `string`                                | The name of the author of the article    |
-| `author_url`     | `string`                                | The URL of the author of the article     |
-| `author_type`    | 'Person' \| 'Organization'              | The type of the author of the article    |
-| `publisher_name` | `string`                                | The name of the publisher of the article |
-| `publisher_url`  | `string`                                | The URL of the publisher of the article  |
-| `date_published` | `Date`\|`null`                          | The date the article was published       |
-| `date_modified`  | `Date`\|`null`                          | The date the article was modified        |
+The schema classes used are from the library [@gboutte/schema.org-classes](https://github.com/gboutte/schema.org-classes).
 
-## Website SearchBox
+Each schema from [schema.org](https://schema.org/docs/schemas.html) has its own class that can be used to create structured data.
 
-Example:
-
-```typescript
-const schema = new WebsiteSchema();
-
-schema.name = 'My Website';
-schema.url = 'https://www.example.com';
-schema.search_url = 'https://www.example.com/search?q=';
-schema.search_url_suffix = '&source=structured_data';
-```
-
-| Property            | Type     | Description                  |
-|---------------------|----------|------------------------------|
-| `name`              | `string` | The name of the website      |
-| `url`               | `string` | The URL of the website       |
-| `search_url`        | `string` | The URL of the search page   |
-| `search_url_suffix` | `string` | The suffix of the search URL |
-
-## FAQPage
-
-Example:
-
-```typescript
-const schema = new FaqSchema();
-
-schema.questions = [
-  {
-    question: 'What is the best thing about structured data?',
-    answer: 'The best thing about structured data is that it helps search engines understand the content of the page.'
-  },
-  {
-    question: 'What is the best thing about structured data?',
-    answer: 'The best thing about structured data is that it helps search engines understand the content of the page.'
-  }
-];
-```
-
-| Property    | Type         | Description                          |
-|-------------|--------------|--------------------------------------|
-| `questions` | `Question[]` | The list of the Question of the page |
-
-## BreadcrumbList
-
-Example:
-
-```typescript
-const schema = new BreadcrumbSchema();
-
-schema.items = [
-  {
-    position: 1,
-    name: 'Home',
-    item: 'https://www.example.com'
-  },
-  {
-    position: 2,
-    name: 'Category',
-    item: 'https://www.example.com/category'
-  },
-  {
-    position: 3,
-    name: 'Subcategory',
-    item: 'https://www.example.com/category/subcategory'
-  }
-];
-```
-
-| Property | Type               | Description                                |
-|----------|--------------------|--------------------------------------------|
-| `items`  | `BreadcrumbItem[]` | The list of the BreadcrumbItem of the page |
-
-## Event
-
-Example:
-
-```typescript
-const schema = new EventSchema();
-
-schema.name = 'Event Name';
-schema.perfomer_name = 'Performer Name';
-schema.description = 'Event Description';
-schema.image_url = 'https://example.com/image.jpg';
-schema.eventStatus = 'Scheduled';
-
-const offer = new OfferSchema();
-offer.price = 100;
-
-schema.offers = [
-  offer
-];
-
-
-const attendanceMode = new OfflineEventAttendanceModeSchema();
-attendanceMode.name = 'Offline Event';
-attendanceMode.postalAddress = new PostalAddressSchema();
-attendanceMode.postalAddress.streetAddress = '123 Main St';
-attendanceMode.postalAddress.addressLocality = 'Springfield';
-attendanceMode.postalAddress.addressRegion = 'IL';
-attendanceMode.postalAddress.postalCode = '62701';
-attendanceMode.postalAddress.addressCountry = 'US';
-
-schema.attendanceMode = attendanceMode;
-```
-
-| Property         | Type                                                                        | Description                            |
-|------------------|-----------------------------------------------------------------------------|----------------------------------------|
-| `name`           | `string`                                                                    | The name of the event                  |
-| `description`    | `string`                                                                    | The description of the event           |
-| `image_url`      | `string`                                                                    | The URL of the image of the event      |
-| `perfomer_name`  | `string`                                                                    | The name of the performer of the event |
-| `perfomer_type`  | 'Person'\| 'PerformingGroup'\| 'MusicGroup'\| 'DanceGroup'\| 'TheaterGroup' | The name of the performer of the event |
-| `eventStatus`    | 'Scheduled'\| 'Cancelled'\| 'Postponed'\| 'MovedOnline'\| 'None'            | The status of the event                |
-| `offers`         | `OfferSchema[]`                                                             | The list of the offers of the event    |
-| `attendanceMode` | `EventAttendanceModeSchema`                                                 | The attendance mode of the event       |
-| `startDate`      | `Date`\|`null`                                                              | The start date of the event            |
-| `endDate`        | `Date`\|`null`                                                              | The end date of the event              |
+For example, to create a `Person` schema, you can use the `PersonSchema` class.

@@ -1,43 +1,44 @@
 import {
   Component,
   ElementRef,
-  Input,
+  inject,
+  input,
+  InputSignal,
   OnChanges,
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
-import { AngularStructuredDataService } from '../angular-structured-data.service';
 import { SchemaInterface } from '@gboutte/schema.org-classes';
+import { AngularStructuredDataService } from '../angular-structured-data.service';
 
 @Component({
   selector: 'sd-structured-data',
-  standalone: true,
   imports: [],
   templateUrl: './structured-data.component.html',
   styleUrl: './structured-data.component.scss',
-  providers: [AngularStructuredDataService]
+  providers: [AngularStructuredDataService],
 })
 export class StructuredDataComponent implements OnChanges, OnDestroy {
-  @Input() schema!: SchemaInterface;
+  readonly schema: InputSignal<SchemaInterface> =
+    input.required<SchemaInterface>();
   private id!: string;
-  private structuredDataService: AngularStructuredDataService;
-  private elRef: ElementRef;
+  private structuredDataService: AngularStructuredDataService = inject(
+    AngularStructuredDataService,
+  );
+  private elRef: ElementRef = inject(ElementRef);
 
-  constructor(structuredDataService: AngularStructuredDataService, elRef: ElementRef) {
-    this.structuredDataService = structuredDataService;
-    this.elRef = elRef;
+  constructor() {
     const dataId = this.elRef.nativeElement.getAttribute('data-id-sd');
     if (dataId !== null) {
       this.id = dataId;
     }
-    console.log('ici')
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.id !== undefined) {
       this.structuredDataService.removeStructuredData(this.id);
     }
-    this.id = this.structuredDataService.addStructuredData(this.schema);
+    this.id = this.structuredDataService.addStructuredData(this.schema());
     this.updateId(this.id);
   }
 

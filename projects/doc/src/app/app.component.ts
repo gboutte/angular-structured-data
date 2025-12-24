@@ -1,14 +1,29 @@
-import { NgForOf } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
-import { StructuredDataComponent } from '../../../angular-structured-data/src/lib/structured-data/structured-data.component';
-import { SchemaInterface,StructuredDataService ,EventSchema,PersonSchema,EventStatusType,OfferSchema,ItemAvailability,PlaceSchema,PostalAddressSchema,EventAttendanceModeEnumeration} from '@gboutte/schema.org-classes'
+import {
+  EventAttendanceModeEnumeration,
+  EventSchema,
+  EventStatusType,
+  ItemAvailability,
+  OfferSchema,
+  PersonSchema,
+  PlaceSchema,
+  PostalAddressSchema,
+  SchemaInterface,
+  StructuredDataService,
+} from '@gboutte/schema.org-classes';
+import { ArticleExampleComponent } from './examples/article-example/article-example.component';
+import { BreadcrumbExampleComponent } from './examples/breadcrumb-example/breadcrumb-example.component';
+import { EventExampleComponent } from './examples/event-example/event-example.component';
+import { FaqExampleComponent } from './examples/faq-example/faq-example.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, StructuredDataComponent, NgForOf],
+  imports: [
+    ArticleExampleComponent,
+    FaqExampleComponent,
+    BreadcrumbExampleComponent,
+    EventExampleComponent,
+  ],
   providers: [StructuredDataService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -17,7 +32,6 @@ export class AppComponent {
   schema!: SchemaInterface;
 
   schemaJsonString!: string;
-
 
   schemas: SchemaInterface[] = [];
   constructor() {
@@ -54,7 +68,7 @@ export class AppComponent {
     schema.eventAttendanceMode =
       EventAttendanceModeEnumeration.OfflineEventAttendanceMode;
 
-    const service = new StructuredDataService()
+    const service: StructuredDataService = new StructuredDataService();
     const jsonString: string = service.getStructuredDataJsonString(schema);
 
     this.schemas.push(schema);
