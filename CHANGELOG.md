@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Renamed `StructuredDataService` to `AngularStructuredDataService`
 - Updated `AngularStructuredDataService` and `StructuredDataComponent` to use `StructuredDataService` and all Schema classes from `@gboutte/schema.org-classes`
+- Updated lib peer dependency to accept Angular versions 16 to 21
+- Updated Angular doc dependencies to version 20
+- Applied Angular migrations (signals, standalone, control flow and inject properties)
 
 ### Removed
 - `StructuredDataService`
