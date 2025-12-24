@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnDestroy,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges, inject } from '@angular/core';
 import { AngularStructuredDataService } from '../angular-structured-data.service';
 import { SchemaInterface } from '@gboutte/schema.org-classes';
 
@@ -19,17 +12,14 @@ import { SchemaInterface } from '@gboutte/schema.org-classes';
 export class StructuredDataComponent implements OnChanges, OnDestroy {
   @Input() schema!: SchemaInterface;
   private id!: string;
-  private structuredDataService: AngularStructuredDataService;
-  private elRef: ElementRef;
+  private structuredDataService: AngularStructuredDataService = inject(AngularStructuredDataService);
+  private elRef: ElementRef  = inject(ElementRef);
 
-  constructor(structuredDataService: AngularStructuredDataService, elRef: ElementRef) {
-    this.structuredDataService = structuredDataService;
-    this.elRef = elRef;
+  constructor() {
     const dataId = this.elRef.nativeElement.getAttribute('data-id-sd');
     if (dataId !== null) {
       this.id = dataId;
     }
-    console.log('ici')
   }
 
   ngOnChanges(changes: SimpleChanges): void {

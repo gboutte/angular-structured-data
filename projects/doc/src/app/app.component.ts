@@ -50,7 +50,7 @@ export class AppComponent {
     schema.eventAttendanceMode =
       EventAttendanceModeEnumeration.OfflineEventAttendanceMode;
 
-    const service = new StructuredDataService()
+    const service:StructuredDataService = new StructuredDataService()
     const jsonString: string = service.getStructuredDataJsonString(schema);
 
     this.schemas.push(schema);
