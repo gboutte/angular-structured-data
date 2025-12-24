@@ -1,13 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { AngularStructuredDataService } from '../../../../../angular-structured-data/src/lib/angular-structured-data.service';
 import {
   EventAttendanceModeEnumeration,
   EventSchema,
   EventStatusType,
-  OfferSchema, OrganizationSchema,
-  PersonSchema, PlaceSchema, PostalAddressSchema,
+  OfferSchema,
+  OrganizationSchema,
+  PersonSchema,
+  PlaceSchema,
+  PostalAddressSchema,
   SchemaInterface,
 } from '@gboutte/schema.org-classes';
+import { AngularStructuredDataService } from '../../../../../angular-structured-data/src/lib/angular-structured-data.service';
 import { StructuredDataComponent } from '../../../../../angular-structured-data/src/lib/structured-data/structured-data.component';
 
 @Component({
@@ -55,7 +58,7 @@ export class EventExampleComponent {
     schema.eventAttendanceMode =
       EventAttendanceModeEnumeration.OfflineEventAttendanceMode;
 
-    const place:PlaceSchema = new PlaceSchema();
+    const place: PlaceSchema = new PlaceSchema();
     place.name = 'Offline Event';
 
     const postalAddress = new PostalAddressSchema();
@@ -68,11 +71,10 @@ export class EventExampleComponent {
 
     schema.location = place;
 
-
     schema.startDate = new Date('2025-12-01T20:00:00.000Z');
     schema.endDate = new Date('2025-12-01T22:00:00.000Z');
 
-    const organizer:OrganizationSchema = new OrganizationSchema();
+    const organizer: OrganizationSchema = new OrganizationSchema();
     organizer.name = 'Event Organizer';
 
     schema.organizer = organizer;

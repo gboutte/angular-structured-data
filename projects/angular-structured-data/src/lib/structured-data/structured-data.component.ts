@@ -1,19 +1,31 @@
-import { Component, ElementRef, OnChanges, OnDestroy, SimpleChanges, inject, input, InputSignal } from '@angular/core';
-import { AngularStructuredDataService } from '../angular-structured-data.service';
+import {
+  Component,
+  ElementRef,
+  inject,
+  input,
+  InputSignal,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+} from '@angular/core';
 import { SchemaInterface } from '@gboutte/schema.org-classes';
+import { AngularStructuredDataService } from '../angular-structured-data.service';
 
 @Component({
-    selector: 'sd-structured-data',
-    imports: [],
-    templateUrl: './structured-data.component.html',
-    styleUrl: './structured-data.component.scss',
-    providers: [AngularStructuredDataService]
+  selector: 'sd-structured-data',
+  imports: [],
+  templateUrl: './structured-data.component.html',
+  styleUrl: './structured-data.component.scss',
+  providers: [AngularStructuredDataService],
 })
 export class StructuredDataComponent implements OnChanges, OnDestroy {
-  readonly schema:InputSignal<SchemaInterface> = input.required<SchemaInterface>();
+  readonly schema: InputSignal<SchemaInterface> =
+    input.required<SchemaInterface>();
   private id!: string;
-  private structuredDataService: AngularStructuredDataService = inject(AngularStructuredDataService);
-  private elRef: ElementRef  = inject(ElementRef);
+  private structuredDataService: AngularStructuredDataService = inject(
+    AngularStructuredDataService,
+  );
+  private elRef: ElementRef = inject(ElementRef);
 
   constructor() {
     const dataId = this.elRef.nativeElement.getAttribute('data-id-sd');

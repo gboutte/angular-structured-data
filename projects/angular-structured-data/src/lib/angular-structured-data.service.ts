@@ -1,13 +1,22 @@
-import { Injectable, RendererFactory2, DOCUMENT, inject, Renderer2 } from '@angular/core';
-import { SchemaInterface,StructuredDataService as SdService } from '@gboutte/schema.org-classes';
+import {
+  DOCUMENT,
+  inject,
+  Injectable,
+  Renderer2,
+  RendererFactory2,
+} from '@angular/core';
+import {
+  SchemaInterface,
+  StructuredDataService as SdService,
+} from '@gboutte/schema.org-classes';
 
 @Injectable()
 export class AngularStructuredDataService {
-  private _document:Document = inject<Document>(DOCUMENT);
+  private _document: Document = inject<Document>(DOCUMENT);
 
   private rendererFactory: RendererFactory2 = inject(RendererFactory2);
-  private _renderer2:Renderer2;
-  private sdService:SdService = new SdService();
+  private _renderer2: Renderer2;
+  private sdService: SdService = new SdService();
   constructor() {
     this._renderer2 = this.rendererFactory.createRenderer(null, null);
   }
@@ -30,14 +39,15 @@ export class AngularStructuredDataService {
   }
 
   public removeStructuredData(id: string) {
-    const script:HTMLElement|null = this._document.getElementById(id);
+    const script: HTMLElement | null = this._document.getElementById(id);
     if (script) {
       this._renderer2.removeChild(this._document.body, script);
     }
   }
 
   public removeAllStructuredData() {
-    const scripts: NodeListOf<Element> = this._document.querySelectorAll('.structured-data');
+    const scripts: NodeListOf<Element> =
+      this._document.querySelectorAll('.structured-data');
     for (let i = 0; i < scripts.length; i++) {
       this._renderer2.removeChild(this._document.body, scripts[i]);
     }

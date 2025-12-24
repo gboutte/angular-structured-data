@@ -1,18 +1,12 @@
 import { Component, inject } from '@angular/core';
 import {
-  AngularStructuredDataService
-} from '../../../../../angular-structured-data/src/lib/angular-structured-data.service';
-import {
   AnswerSchema,
-  ArticleSchema, FAQPageSchema,
-  Organization,
-  OrganizationSchema,
-  PersonSchema, QuestionSchema,
+  FAQPageSchema,
+  QuestionSchema,
   SchemaInterface,
 } from '@gboutte/schema.org-classes';
-import {
-  StructuredDataComponent
-} from '../../../../../angular-structured-data/src/lib/structured-data/structured-data.component';
+import { AngularStructuredDataService } from '../../../../../angular-structured-data/src/lib/angular-structured-data.service';
+import { StructuredDataComponent } from '../../../../../angular-structured-data/src/lib/structured-data/structured-data.component';
 
 @Component({
   selector: 'sd-faq-example',
@@ -42,23 +36,21 @@ export class FaqExampleComponent {
   private getSchema(): SchemaInterface {
     const schema: FAQPageSchema = new FAQPageSchema();
 
-
-    const question1 : QuestionSchema = new QuestionSchema();
+    const question1: QuestionSchema = new QuestionSchema();
     question1.name = 'My question 1 ?';
 
-    const answer1 : AnswerSchema = new AnswerSchema();
+    const answer1: AnswerSchema = new AnswerSchema();
     answer1.text = 'My answer 1.';
 
     question1.acceptedAnswer = answer1;
     schema.mainEntity = [question1];
 
-    const question2 : QuestionSchema = new QuestionSchema();
+    const question2: QuestionSchema = new QuestionSchema();
     question2.name = 'My question 2 ?';
-    const answer2 : AnswerSchema = new AnswerSchema();
+    const answer2: AnswerSchema = new AnswerSchema();
     answer2.text = 'My answer 2.';
     question2.acceptedAnswer = answer2;
     schema.mainEntity.push(question2);
-
 
     return schema;
   }

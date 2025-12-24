@@ -1,16 +1,13 @@
 import { Component, inject } from '@angular/core';
 import {
-  StructuredDataComponent
-} from '../../../../../angular-structured-data/src/lib/structured-data/structured-data.component';
-import {
-  ArticleSchema, Organization, OrganizationSchema, PersonSchema,
+  ArticleSchema,
+  Organization,
+  OrganizationSchema,
+  PersonSchema,
   SchemaInterface,
-  SearchActionSchema,
-  WebSiteSchema,
 } from '@gboutte/schema.org-classes';
-import {
-  AngularStructuredDataService
-} from '../../../../../angular-structured-data/src/lib/angular-structured-data.service';
+import { AngularStructuredDataService } from '../../../../../angular-structured-data/src/lib/angular-structured-data.service';
+import { StructuredDataComponent } from '../../../../../angular-structured-data/src/lib/structured-data/structured-data.component';
 
 @Component({
   selector: 'sd-article-example',
@@ -20,35 +17,35 @@ import {
   providers: [AngularStructuredDataService],
 })
 export class ArticleExampleComponent {
-
   protected schemaJsonString!: string;
   protected schemas: SchemaInterface[] = [];
 
-  private structuredDataService:AngularStructuredDataService = inject(AngularStructuredDataService);
+  private structuredDataService: AngularStructuredDataService = inject(
+    AngularStructuredDataService,
+  );
 
   constructor() {
+    const schema: SchemaInterface = this.getSchema();
 
-    const schema:SchemaInterface = this.getSchema();
-
-    const jsonString: string = this.structuredDataService.getStructuredDataJsonString(schema);
+    const jsonString: string =
+      this.structuredDataService.getStructuredDataJsonString(schema);
 
     this.schemas.push(schema);
     this.schemaJsonString = jsonString;
   }
 
-  private getSchema():SchemaInterface{
-
-    const schema :ArticleSchema= new ArticleSchema();
+  private getSchema(): SchemaInterface {
+    const schema: ArticleSchema = new ArticleSchema();
     schema.headline = 'Article headline';
     schema.image = ['https://www.example.com/image.jpg'];
 
-    const author:PersonSchema = new PersonSchema();
+    const author: PersonSchema = new PersonSchema();
     author.name = 'John Doe';
     author.url = 'https://www.example.com/johndoe';
 
     schema.author = author;
 
-    const publisher : Organization = new OrganizationSchema();
+    const publisher: Organization = new OrganizationSchema();
 
     publisher.name = 'Example Publisher';
     publisher.logo = 'https://www.example.com/logo.png';
