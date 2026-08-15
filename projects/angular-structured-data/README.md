@@ -1,5 +1,12 @@
 # AngularStructuredData
 
+## Installation
+You can install the package via npm:
+
+```bash
+npm install @gboutte/angular-structured-data @gboutte/schema.org-classes
+```
+
 ## Structured Data Service
 
 You can add the structured data by using the `AngularStructuredDataService` service.
